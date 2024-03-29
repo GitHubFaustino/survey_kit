@@ -31,20 +31,32 @@ class StepView extends StatelessWidget {
   Widget _content(SurveyController surveyController, BuildContext context) {
     return SizedBox.expand(
       child: Container(
+        alignment: Alignment.topCenter,
         color: Theme.of(context).colorScheme.background,
-        child: Center(
+        child: Container(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                //Text("XXX"),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 20.0),
                   child: title,
                 ),
-                child,
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 10.0),
+                    child: InkWell(
+                        onTap: () {
+                          debugPrint("TAPPED");
+                        },
+                        child: child)),
+                //Text("ZZZ"),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 32.0, horizontal: 20.0),
                   child: OutlinedButton(
                     onPressed: isValid || step.isOptional
                         ? () => [

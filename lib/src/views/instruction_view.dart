@@ -24,7 +24,7 @@ class InstructionView extends StatelessWidget {
         DateTime.now(),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Text(
           instructionStep.text,
           style: Theme.of(context).textTheme.bodyMedium,

@@ -146,6 +146,8 @@ class _SurveyPageState extends State<SurveyPage>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size; //check the size of device
+
     return BlocConsumer<SurveyPresenter, SurveyState>(
       listenWhen: (previous, current) => previous != current,
       listener: (context, state) async {
@@ -159,37 +161,54 @@ class _SurveyPageState extends State<SurveyPage>
       builder: (BuildContext context, SurveyState state) {
         if (state is PresentingSurveyState) {
           return Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: state.currentStep.showAppBar
-                ? PreferredSize(
-                    preferredSize: Size(
-                      double.infinity,
-                      70.0,
-                    ),
-                    child: widget.appBar != null
-                        ? widget.appBar!.call(state.appBarConfiguration)
-                        : SurveyAppBar(
-                            appBarConfiguration: state.appBarConfiguration,
-                          ),
-                  )
-                : null,
-            body: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: tabController,
-              children: state.steps
-                  .map(
-                    (e) => _SurveyView(
-                      id: e.stepIdentifier.id,
-                      createView: () => e.createView(
-                        questionResult: state.questionResults.firstWhereOrNull(
-                          (element) => element.id == e.stepIdentifier,
-                        ),
+              backgroundColor: Colors.transparent,
+              appBar: state.currentStep.showAppBar
+                  ? PreferredSize(
+                      preferredSize: Size(
+                        double.infinity,
+                        70.0,
                       ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          );
+                      child: widget.appBar != null
+                          ? widget.appBar!.call(state.appBarConfiguration)
+                          : SurveyAppBar(
+                              appBarConfiguration: state.appBarConfiguration,
+                            ),
+                    )
+                  : null,
+              body: SizedBox(
+                  child: Column(children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: (state.currentStep.imagePath.isEmpty)
+                      ? Container()
+                      : Image.asset(
+                          state.currentStep.imagePath,
+                          height: ((size.height - 70) * 0.30),
+                        ),
+                ),
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                        height: ((size.height - 70) * 0.60),
+                        child: TabBarView(
+                          physics: BouncingScrollPhysics(),
+                          controller: tabController,
+                          children: state.steps
+                              .map(
+                                (e) => _SurveyView(
+                                  id: e.stepIdentifier.id,
+                                  createView: () => e.createView(
+                                    questionResult:
+                                        state.questionResults.firstWhereOrNull(
+                                      (element) =>
+                                          element.id == e.stepIdentifier,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ))),
+              ])));
         } else if (state is SurveyResultState && state.currentStep != null) {
           return Center(
             child: CircularProgressIndicator(),
@@ -211,11 +230,21 @@ class _SurveyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: ValueKey<String>(
-        id,
+    return Stack(alignment: Alignment.topCenter, children: [
+      Container(
+        alignment: Alignment.topCenter,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/home_background.png"),
+            opacity: .2,
+            fit: BoxFit.cover,
+          ),
+        ),
+        key: ValueKey<String>(
+          id,
+        ),
+        child: createView(),
       ),
-      child: createView(),
-    );
+    ]);
   }
 }

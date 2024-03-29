@@ -9,6 +9,7 @@ part of 'question_step.dart';
 QuestionStep _$QuestionStepFromJson(Map<String, dynamic> json) => QuestionStep(
       isOptional: json['isOptional'] as bool? ?? false,
       buttonText: json['buttonText'] as String? ?? 'Next',
+      imagePath: json['imagePath'] as String? ?? '',
       stepIdentifier: json['stepIdentifier'] == null
           ? null
           : StepIdentifier.fromJson(
@@ -26,6 +27,7 @@ Map<String, dynamic> _$QuestionStepToJson(QuestionStep instance) =>
       'isOptional': instance.isOptional,
       'buttonText': instance.buttonText,
       'showAppBar': instance.showAppBar,
+      'imagePath': instance.imagePath,
       'title': instance.title,
       'text': instance.text,
       'answerFormat': instance.answerFormat,

@@ -12,6 +12,7 @@ InstructionStep _$InstructionStepFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String,
       isOptional: json['isOptional'] as bool? ?? false,
       buttonText: json['buttonText'] as String? ?? 'Next',
+      imagePath: json['imagePath'] as String? ?? '',
       stepIdentifier: json['stepIdentifier'] == null
           ? null
           : StepIdentifier.fromJson(
@@ -26,6 +27,7 @@ Map<String, dynamic> _$InstructionStepToJson(InstructionStep instance) =>
       'stepIdentifier': instance.stepIdentifier.toJson(),
       'isOptional': instance.isOptional,
       'buttonText': instance.buttonText,
+      'imagePath': instance.imagePath,
       'canGoBack': instance.canGoBack,
       'showProgress': instance.showProgress,
       'showAppBar': instance.showAppBar,
