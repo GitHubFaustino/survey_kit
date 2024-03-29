@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:survey_kit/src/controller/survey_controller.dart';
-import 'package:survey_kit/src/result/question_result.dart';
 import 'package:survey_kit/src/steps/step.dart' as surveystep;
 import 'package:survey_kit/survey_kit.dart';
 
+// ignore: must_be_immutable
 class StepView extends StatelessWidget {
   final surveystep.Step step;
   final Widget title;
@@ -26,17 +25,15 @@ class StepView extends StatelessWidget {
 
   void click() {
     debugPrint("TAPPED");
-    if (isValid || step.isOptional) {
-      _surveyController.nextStep(ctx, resultFunction);
-    }
+    //if (isValid || step.isOptional) {
+    _surveyController.nextStep(ctx, resultFunction);
+    //}
   }
 
   @override
   Widget build(BuildContext context) {
     ctx = context;
     _surveyController = controller ?? context.read<SurveyController>();
-
-    SingleChoiceAnswerView av;
 
     return _content(_surveyController, context);
   }
@@ -66,27 +63,29 @@ class StepView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 32.0, horizontal: 20.0),
-                  child: OutlinedButton(
-                    onPressed: isValid || step.isOptional
-                        ? () => [
-                              FocusScope.of(context).hasFocus
-                                  ? FocusScope.of(context).unfocus()
-                                  : null,
-                              surveyController.nextStep(
-                                  context, resultFunction),
-                            ]
-                        : null,
-                    child: Text(
-                      context.read<Map<String, String>?>()?['next'] ??
-                          step.buttonText ??
-                          'Next',
-                      style: TextStyle(
-                        color: isValid
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey,
-                      ),
-                    ),
-                  ),
+                  child: (step.autoNext)
+                      ? null
+                      : OutlinedButton(
+                          onPressed: isValid || step.isOptional
+                              ? () => [
+                                    FocusScope.of(context).hasFocus
+                                        ? FocusScope.of(context).unfocus()
+                                        : null,
+                                    surveyController.nextStep(
+                                        context, resultFunction),
+                                  ]
+                              : null,
+                          child: Text(
+                            context.read<Map<String, String>?>()?['next'] ??
+                                step.buttonText ??
+                                'Next',
+                            style: TextStyle(
+                              color: isValid
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
                 ),
               ],
             ),

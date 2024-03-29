@@ -15,6 +15,8 @@ abstract class Step {
   final String? buttonText;
   @JsonKey(defaultValue: '')
   final String imagePath;
+  @JsonKey(defaultValue: false)
+  final bool autoNext;
   final bool canGoBack;
   final bool showProgress;
   final bool showAppBar;
@@ -24,6 +26,7 @@ abstract class Step {
     this.isOptional = false,
     this.buttonText = 'Next',
     this.imagePath = "",
+    this.autoNext = false,
     this.canGoBack = true,
     this.showProgress = true,
     this.showAppBar = true,

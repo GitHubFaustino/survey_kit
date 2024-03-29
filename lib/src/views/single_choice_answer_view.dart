@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:survey_kit/src/answer_format/single_choice_answer_format.dart';
 import 'package:survey_kit/src/answer_format/text_choice.dart';
@@ -79,15 +77,18 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
                     return SelectionListTile(
                       text: tc.text,
                       onTap: () {
-                        if (_selectedChoice == tc) {
-                          _selectedChoice = null;
-                        } else {
+                        if (widget.questionStep.autoNext) {
                           _selectedChoice = tc;
+                          setState(() {});
+                          stpvw.click();
+                        } else {
+                          if (_selectedChoice == tc) {
+                            _selectedChoice = null;
+                          } else {
+                            _selectedChoice = tc;
+                          }
+                          setState(() {});
                         }
-                        _selectedChoice = tc;
-
-                        setState(() {});
-                        stpvw.click();
                       },
                       isSelected: _selectedChoice == tc,
                     );

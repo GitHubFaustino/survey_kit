@@ -61,6 +61,7 @@ class QuestionStep extends Step {
     String buttonText = 'Next',
     StepIdentifier? stepIdentifier,
     String imagePath = "",
+    bool autoNext = false,
     bool showAppBar = true,
     this.title = '',
     this.text = '',
@@ -71,6 +72,7 @@ class QuestionStep extends Step {
           isOptional: isOptional,
           buttonText: buttonText,
           imagePath: imagePath,
+          autoNext: autoNext,
           showAppBar: showAppBar,
         );
 

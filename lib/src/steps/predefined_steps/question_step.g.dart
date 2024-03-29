@@ -10,6 +10,7 @@ QuestionStep _$QuestionStepFromJson(Map<String, dynamic> json) => QuestionStep(
       isOptional: json['isOptional'] as bool? ?? false,
       buttonText: json['buttonText'] as String? ?? 'Next',
       imagePath: json['imagePath'] as String? ?? '',
+      autoNext: json['autoNext'] as bool? ?? false,
       stepIdentifier: json['stepIdentifier'] == null
           ? null
           : StepIdentifier.fromJson(
@@ -28,6 +29,7 @@ Map<String, dynamic> _$QuestionStepToJson(QuestionStep instance) =>
       'buttonText': instance.buttonText,
       'showAppBar': instance.showAppBar,
       'imagePath': instance.imagePath,
+      'autoNext': instance.autoNext,
       'title': instance.title,
       'text': instance.text,
       'answerFormat': instance.answerFormat,
