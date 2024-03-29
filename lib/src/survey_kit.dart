@@ -235,8 +235,8 @@ class _SurveyView extends StatelessWidget {
         alignment: Alignment.topCenter,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/home_background.png"),
-            opacity: .2,
+            image: AssetImage("assets/images/bkgd2.png"),
+            opacity: .07,
             fit: BoxFit.cover,
           ),
         ),
