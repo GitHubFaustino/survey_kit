@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:survey_kit/src/controller/survey_controller.dart';
 import 'package:survey_kit/src/result/question_result.dart';
 import 'package:survey_kit/src/steps/step.dart' as surveystep;
+import 'package:survey_kit/survey_kit.dart';
 
 class StepView extends StatelessWidget {
   final surveystep.Step step;
@@ -11,8 +12,10 @@ class StepView extends StatelessWidget {
   final QuestionResult Function() resultFunction;
   final bool isValid;
   final SurveyController? controller;
+  late BuildContext ctx;
+  late SurveyController _surveyController;
 
-  const StepView({
+  StepView({
     required this.step,
     required this.child,
     required this.title,
@@ -21,9 +24,19 @@ class StepView extends StatelessWidget {
     this.isValid = true,
   });
 
+  void click() {
+    debugPrint("TAPPED");
+    if (isValid || step.isOptional) {
+      _surveyController.nextStep(ctx, resultFunction);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _surveyController = controller ?? context.read<SurveyController>();
+    ctx = context;
+    _surveyController = controller ?? context.read<SurveyController>();
+
+    SingleChoiceAnswerView av;
 
     return _content(_surveyController, context);
   }
@@ -48,11 +61,7 @@ class StepView extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 5.0, horizontal: 10.0),
-                    child: InkWell(
-                        onTap: () {
-                          debugPrint("TAPPED");
-                        },
-                        child: child)),
+                    child: GestureDetector(onTap: () {}, child: child)),
                 //  Text("ZZZ"),
                 Padding(
                   padding: const EdgeInsets.symmetric(

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:survey_kit/src/answer_format/single_choice_answer_format.dart';
 import 'package:survey_kit/src/answer_format/text_choice.dart';
@@ -10,7 +12,7 @@ class SingleChoiceAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
   final SingleChoiceQuestionResult? result;
 
-  const SingleChoiceAnswerView({
+  SingleChoiceAnswerView({
     Key? key,
     required this.questionStep,
     required this.result,
@@ -24,6 +26,7 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
   late final DateTime _startDate;
   late final SingleChoiceAnswerFormat _singleChoiceAnswerFormat;
   TextChoice? _selectedChoice;
+  late StepView stpvw;
 
   @override
   void initState() {
@@ -37,7 +40,7 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
 
   @override
   Widget build(BuildContext context) {
-    return StepView(
+    stpvw = StepView(
       step: widget.questionStep,
       resultFunction: () => SingleChoiceQuestionResult(
         id: widget.questionStep.stepIdentifier,
@@ -81,7 +84,10 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
                         } else {
                           _selectedChoice = tc;
                         }
+                        _selectedChoice = tc;
+
                         setState(() {});
+                        stpvw.click();
                       },
                       isSelected: _selectedChoice == tc,
                     );
@@ -93,5 +99,6 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
         ),
       ),
     );
+    return stpvw;
   }
 }
