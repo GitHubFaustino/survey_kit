@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:survey_kit/src/answer_format/image_answer_format.dart';
 import 'package:survey_kit/src/result/question/image_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
@@ -156,7 +156,7 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
 
   Future<void> _openCamera() async {
     Container();
-
+/*
     var picture = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
@@ -168,9 +168,11 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
         filePath = picture.path;
       });
     });
+    */
   }
 
   Future<void> _openGallery() async {
+    /*
     var picture = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -182,5 +184,6 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
         filePath = picture.path;
       });
     });
+    */
   }
 }
